@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 用户服务类
  */
@@ -37,6 +40,7 @@ public class Userservice {
         }
         return false;
     }
+
     //注册
     public boolean register(User user, byte [] touxiangByte){
         SQLiteDatabase sdb=mySQLiteOpenHelper.getReadableDatabase();
@@ -45,6 +49,7 @@ public class Userservice {
         sdb.execSQL(sql, obj);
         return true;
     }
+
     //获取数据库头像的图片
     public Bitmap getBmp(String username){
         SQLiteDatabase db=mySQLiteOpenHelper.getReadableDatabase();
@@ -70,6 +75,7 @@ public class Userservice {
         }
         return false;
     }
+
     //修改头像
     public boolean changetouxiang(String username,byte [] touxiangByte){
         SQLiteDatabase sdb=mySQLiteOpenHelper.getReadableDatabase();

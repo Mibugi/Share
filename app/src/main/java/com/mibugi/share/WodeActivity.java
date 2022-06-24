@@ -1,21 +1,29 @@
 package com.mibugi.share;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WodeActivity extends AppCompatActivity {
     private Button logout;
@@ -27,6 +35,11 @@ public class WodeActivity extends AppCompatActivity {
     private TextView wode_name;
     private ImageView wode_add;
     private String username;
+    private HomeAdapter homeAdapter;
+    private List<PictureVO> pictureList;
+    private SQLiteDatabase db;
+    private StringAndBitmap stringAndBitmap = new StringAndBitmap();
+
     private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
 
     private static final int PHOTO_REQUEST_CUT = 3;// 结果
@@ -50,19 +63,64 @@ public class WodeActivity extends AppCompatActivity {
         wode_name.setText(username);
         Userservice userservice=new Userservice(WodeActivity.this);
         wode_touxiang.setImageBitmap(userservice.getBmp(username));
+
+        MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(WodeActivity.this);
+        db = mySQLiteOpenHelper.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("select * from user where username=?",new String[]{username});
+        Cursor cursor = db.rawQuery("select * from picture where username=?",new String[]{username});
+        pictureList = new ArrayList<PictureVO>();
+        int titleIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_TITLE);
+        int contentIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_CONTENT);
+        int imageIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_IMAGE);
+        int usernameIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_USERNAME);
+        int loveCountIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_LOVE_COUNT);
+
+        while(cursor.moveToNext()){
+            PictureVO picture = new PictureVO();
+            String title = cursor.getString(titleIndex);
+            String content = cursor.getString(contentIndex);
+            String image = cursor.getString(imageIndex);
+            Bitmap bitmap = stringAndBitmap.stringToBitmap(image);
+            String username= cursor.getString(usernameIndex);
+            Integer loveCount = cursor.getInt(loveCountIndex);
+                picture.setTitle(title);
+                picture.setContent(content);
+                picture.setImage(bitmap);
+                picture.setUsername(username);
+                picture.setLoveCount(loveCount);
+                pictureList.add(picture);
+        }
+        if(pictureList.size() > 0){
+            pictureList.forEach(picture -> {
+                String username = picture.getUsername();
+                picture.setHead(userservice.getBmp(username));
+            });
+        }
+        System.out.println(pictureList);
+        homeAdapter=new HomeAdapter(WodeActivity.this,R.layout.item,pictureList);
+        homeAdapter.init();
+        RecyclerView recyclerView=findViewById(R.id.wode_item);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+
+
         xihuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                zuopin.setTextColor(Color.parseColor("#000000"));
-                xihuan.setTextColor(Color.parseColor("#FF0000"));
+                zuopin.setTextColor(Color.parseColor("#FFFFFFFF"));
+                xihuan.setTextColor(Color.parseColor("#165191"));
+
+
             }
         });
 //        全部的图片展示
-        zuopin.setOnClickListener(new View.OnClickListener() {
+        zuopin.setOnClickListener(new View.OnClickListener() { // 点击作品，作品变暗
             @Override
             public void onClick(View view) {
-                zuopin.setTextColor(Color.parseColor("#FF0000"));
-                xihuan.setTextColor(Color.parseColor("#000000"));
+                zuopin.setTextColor(Color.parseColor("#165191"));
+                xihuan.setTextColor(Color.parseColor("#FFFFFFFF"));
+
+                recyclerView.setAdapter(homeAdapter);
+
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

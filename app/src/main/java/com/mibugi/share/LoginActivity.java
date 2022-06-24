@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,12 +73,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 bPwdSwitch = !bPwdSwitch;
                 if (bPwdSwitch) {
                     ivPwdSwitch.setImageResource(
-                            R.drawable.ic_baseline_visibility_24);
+                            R.drawable.browse);
                     etPwd.setInputType(
                             InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 } else {
                     ivPwdSwitch.setImageResource(
-                            R.drawable.ic_baseline_visibility_off_24);
+                            R.drawable.not_visible);
                     etPwd.setInputType(
                             InputType.TYPE_TEXT_VARIATION_PASSWORD |
                                     InputType.TYPE_CLASS_TEXT);
@@ -124,8 +125,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.apply();
         }
         MySQLiteOpenHelper dbHeloer=new MySQLiteOpenHelper(LoginActivity.this);
-//        SQLiteDatabase sdb=dbHeloer.getReadableDatabase();
-//        sdb.execSQL("CREATE TABLE user(id INTEGER PRIMARY KEY autoincrement,username VARCHAR(20),password VARCHAR(20),touxiang BLOB(100))");
         Userservice userservice1=new Userservice(LoginActivity.this);
         String username=etAccount.getText().toString();
         String password=etPwd.getText().toString();
@@ -136,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra(name,username);
             startActivity(intent);
         }else {
-            Toast.makeText(LoginActivity.this, "用户名或者密码输入错误，请重新输入！！！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
         }
     }
 

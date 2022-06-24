@@ -1,7 +1,9 @@
 package com.mibugi.share;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorWindow;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView xihuan;
     private ImageView wode;
     private ImageView add;
+
 
     private HomeAdapter homeAdapter;
     public int[] count;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private StringAndBitmap stringAndBitmap = new StringAndBitmap();
     private List<PictureVO> pictureList;
     private Boolean[] isliked;
+    int flag = 0;
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
@@ -56,11 +61,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intenta=getIntent();
         String user=intenta.getStringExtra(name);
 
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         pictureList = new ArrayList<PictureVO>();
         //打开数据库查询图片信息
         MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(MainActivity.this);
-//        db = mySQLiteOpenHelper.getWritableDatabase();
-//        db.execSQL("delete from picture");
         db = mySQLiteOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(PictureContract.PictureEntry.TABLE_NAME,null,null,null,null,null,null);
         int titleIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_TITLE);
@@ -68,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int imageIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_IMAGE);
         int usernameIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_USERNAME);
         int loveCountIndex = cursor.getColumnIndex(PictureContract.PictureEntry.COLUMN_NAME_LOVE_COUNT);
-
-
 
         while(cursor.moveToNext()){
             PictureVO picture = new PictureVO();
@@ -97,23 +106,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         homeAdapter=new HomeAdapter(MainActivity.this,R.layout.item,pictureList);
         homeAdapter.init();
+
         RecyclerView recyclerView=findViewById(R.id.item);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.setAdapter(homeAdapter);
         length=homeAdapter.getItemCount();
+        recyclerView.setAdapter(homeAdapter);
         homeAdapter.setOnItemClickListener(MyItemClickListener);
-//        设置获取本人点赞的图片分享（点击喜欢）
-        xihuan.setOnClickListener(new View.OnClickListener() {
+
+        xihuan.setOnClickListener(new View.OnClickListener() { // 点击喜欢 ， 喜欢变暗
             @Override
             public void onClick(View view) {
-                found.setTextColor(Color.parseColor("#000000"));
-                xihuan.setTextColor(Color.parseColor("#FF0000"));
+                found.setTextColor(Color.parseColor("#FFFFFFFF"));
+                xihuan.setTextColor(Color.parseColor("#165191"));
+                flag = 1;
             }
         });
-//        全部的图片展示（点击发现）
-        found.setOnClickListener(view -> {
-            found.setTextColor(Color.parseColor("#FF0000"));
-            xihuan.setTextColor(Color.parseColor("#000000"));
+        found.setOnClickListener(view -> { // 点击动态，动态变暗
+            found.setTextColor(Color.parseColor("#165191"));
+            xihuan.setTextColor(Color.parseColor("#FFFFFFFF"));
+            flag = 0;
+            recyclerView.setAdapter(homeAdapter); // 点击发现后再加载item
         });
         //点击我的
         wode.setOnClickListener(view -> {
@@ -134,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         Button button4 = findViewById(R.id.button4);
+
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,25 +163,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onItemClick(View v, HomeAdapter.ViewName viewName, int position) {
             switch (v.getId()){
                 case R.id.like:{
-                    Toast.makeText(MainActivity.this,"你点击了第"+(position+1)+"个图片的喜欢",Toast.LENGTH_SHORT).show();
-
-
+                    Toast.makeText(MainActivity.this,"已添加喜欢",Toast.LENGTH_SHORT).show();
                     ImageView like = v.findViewById(R.id.like);
                     if(isliked[position])
                     {
                         like.setImageDrawable(getResources().getDrawable(R.drawable.liked));
                         count[position]++;
-
                     }
-                    else
+                    else // 如果已经点赞了，再点就是取消
                     {
                         like.setImageDrawable(getResources().getDrawable(R.drawable.like));
                         count[position]--;
-
-
                     }
                     isliked[position] = !isliked[position];
-
                     break;
                 }
 

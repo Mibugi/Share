@@ -91,8 +91,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                         e.printStackTrace();
                     }
                 }
-//                bitmap=data.getParcelableExtra("data");
-//                crop(uri);
             }
         }else if (requestCode == PHOTO_REQUEST_CUT){
             if (data!=null){
@@ -107,14 +105,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         String title = add_title.getText().toString();
         String content = add_content.getText().toString();
-//        Bitmap bitmap = ((BitmapDrawable)add_image.getDrawable()).getBitmap();
         String image = stringAndBitmap.bitmapToString(bitmap);
         ContentValues contentValues = new ContentValues();
         contentValues.put(PictureContract.PictureEntry.COLUMN_NAME_TITLE,title);
         contentValues.put(PictureContract.PictureEntry.COLUMN_NAME_CONTENT,content);
         contentValues.put(PictureContract.PictureEntry.COLUMN_NAME_IMAGE,image);
         contentValues.put(PictureContract.PictureEntry.COLUMN_NAME_USERNAME,user);
-
 
         db.insert(PictureContract.PictureEntry.TABLE_NAME,null,contentValues);
 

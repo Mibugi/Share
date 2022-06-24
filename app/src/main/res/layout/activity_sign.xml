@@ -5,48 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.SignActivity"
+    tools:context=".SignActivity"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:background="@drawable/sign_img"
-    >
+    android:alpha="0.9"
+    android:background="@drawable/login_img">
 
+    <ImageView
+        android:id="@+id/sn_back"
+        android:layout_width="37dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="37dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
-
-        <ImageView
-            android:id="@+id/sn_back"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginBottom="9dp"/>
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="125dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="48dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="48dp"
-            android:layout_marginBottom="2dp"
-            android:text="用户注册"
-            android:textColor="@color/text_color"
+            android:text="SING UP"
+            android:textColor="@color/bluetext"
             android:textSize="30dp" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="50dp">
+        android:layout_height="wrap_content"
+        >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/login_logo" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/login_text_bg">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30sp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="9dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/account_logo" />
 
         <EditText
@@ -55,26 +67,28 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="4dp"
-            android:hint="请输入用户名"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@null"
+            android:hint="请输入账号"
             android:inputType="text"
-            android:textSize="20dp"
             android:maxLines="1" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp">
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_text_bg">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="40dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="9dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/lock" />
 
         <EditText
@@ -82,74 +96,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@null"
             android:hint="请输入密码"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="20dp" />
+            android:inputType="textPassword" />
 
         <ImageView
             android:id="@+id/sn_pwd_switch"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="50dp"
-            android:layout_marginRight="48dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/not_visible" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_text_bg">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/lock" />
 
         <EditText
             android:id="@+id/sn_cpwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@null"
             android:hint="请确认密码"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="20dp" />
+            android:inputType="textPassword" />
 
         <ImageView
             android:id="@+id/sn_pwd_switch1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="48dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/not_visible" />
 
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/bt_sign"
-            android:layout_width="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="390dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="48dp"
-            android:background="@drawable/sing_button"
-            android:text="立即注册"
-            android:textColor="@android:color/white" />
+            android:layout_marginTop="19dp"
+            android:background="@drawable/login_button"
+            android:text="S i g n"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
     </RelativeLayout>
+
 </LinearLayout>

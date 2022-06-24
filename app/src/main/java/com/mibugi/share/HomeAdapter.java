@@ -26,13 +26,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         this.resourceId = resourceId;
         this.mPictureData = data;
     }
+
+
     public void init(){
         //将List集合转成对象数组
         pictures = mPictureData.toArray(new PictureVO[mPictureData.size()]);
-//    private Bitmap[] images = (Bitmap[]) mPictureData.stream().map(Picture::getImage).toArray();
-//    private String[] titles = (String[]) mPictureData.stream().map(Picture::getTitle).toArray();
-//        touxiangimage= new int[]{R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5, R.drawable.i1, R.drawable.i2, R.drawable.i3, R.drawable.i4, R.drawable.i5};
-//    private Picture[] usernames = mPictureData.toArray();
     }
     private OnItemClickListener onItemClickListener;
     //item点击事件监听

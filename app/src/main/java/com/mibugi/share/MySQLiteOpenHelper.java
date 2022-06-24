@@ -25,9 +25,11 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //建图片表
         db.execSQL(SQL_CREATE_ENTRIES);
-        String sql="CREATE TABLE user(id INTEGER PRIMARY KEY autoincrement,username VARCHAR(20),password VARCHAR(20),touxiang BLOB(100))";
         //建用户表
+        String sql="CREATE TABLE user(id INTEGER PRIMARY KEY autoincrement,username VARCHAR(20),password VARCHAR(20),touxiang BLOB(100))";
         db.execSQL(sql);;
+        // 建点赞表
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

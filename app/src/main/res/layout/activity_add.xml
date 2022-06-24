@@ -9,25 +9,35 @@
     android:paddingRight="15dp"
     tools:context=".PictureDetailsActivity">
     <!--    图片添加-->
-    <ImageView
-        android:id="@+id/add_image"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/pictureadd"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#333"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="bottom"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_add_p" />
+
+        <ImageView
+            android:id="@+id/uploaded_image"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="20dp" />
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="图片标题"
+        android:layout_marginTop="20dp"
+        android:text="标题"
         android:textColor="@color/text_color"
         android:textSize="25sp" />
+
     <!--    写入标题-->
     <EditText
         android:id="@+id/add_title"
@@ -36,9 +46,12 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginBottom="4dp"
-        android:hint="在此处填写标题~"
+        android:hint="在此处填写标题"
         android:inputType="textMultiLine"
         android:maxLines="2" />
+
+
+
     <TextView
         android:id="@+id/context"
         android:layout_width="wrap_content"
@@ -47,22 +60,27 @@
         android:textColor="@color/text_color"
         android:textSize="25sp" />
     <!--    写入内容-->
+
     <EditText
         android:id="@+id/add_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:hint="添加正文"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="8dp"
+        android:layout_height="200dp"
+        android:background="@android:drawable/edit_text"
+        android:enabled="true"
+        android:gravity="top"
+        android:hint="编辑文本"
         android:inputType="textMultiLine"
-        android:maxLines="5" />
+        android:maxLines="10"
+        android:minLines="8"
+        android:scrollbars="vertical" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="32dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/btn_share"
@@ -70,10 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/add_button"
-            android:text="发布"
+            android:text="SHARE"
             android:textColor="@color/white"
             android:textSize="20dp" />
     </RelativeLayout>

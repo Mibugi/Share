@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mibugi.share">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--对SD卡进行写入操作-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--对SD卡进行读取操作-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 对SD卡进行写入操作 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 对SD卡进行读取操作 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -15,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Share">
-        <activity android:name=".AddActivity"></activity>
+        <activity android:name=".AddActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".WodeActivity" />
         <activity android:name=".PictureDetailsActivity" />
         <activity android:name=".SignActivity" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

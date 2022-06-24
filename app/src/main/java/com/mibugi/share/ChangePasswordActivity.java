@@ -43,12 +43,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 bPwdSwitch1 = !bPwdSwitch1;
                 if (bPwdSwitch1) {
                     switch1.setImageResource(
-                            R.drawable.ic_baseline_visibility_24);
+                            R.drawable.browse);
                     etPwd1.setInputType(
                             InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 } else {
                     switch1.setImageResource(
-                            R.drawable.ic_baseline_visibility_off_24);
+                            R.drawable.not_visible);
                     etPwd1.setInputType(
                             InputType.TYPE_TEXT_VARIATION_PASSWORD |
                                     InputType.TYPE_CLASS_TEXT);
@@ -63,12 +63,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 bPwdSwitch2 = !bPwdSwitch2;
                 if (bPwdSwitch2) {
                     switch2.setImageResource(
-                            R.drawable.ic_baseline_visibility_24);
+                            R.drawable.browse);
                     etPwd2.setInputType(
                             InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 } else {
                     switch2.setImageResource(
-                            R.drawable.ic_baseline_visibility_off_24);
+                            R.drawable.not_visible);
                     etPwd2.setInputType(
                             InputType.TYPE_TEXT_VARIATION_PASSWORD |
                                     InputType.TYPE_CLASS_TEXT);
@@ -86,15 +86,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     User user=new User(username,password1);
                     userservice.changepas(user);
                     if (userservice.login(username,password1)){
-                        Toast.makeText(ChangePasswordActivity.this, "修改成功！！！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "修改成功！", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent();
                         intent.setClass(ChangePasswordActivity.this,LoginActivity.class);
                         startActivity(intent);
                     }else {
-                        Toast.makeText(ChangePasswordActivity.this, "修改不成功，存在错误！！！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "修改失败，存在错误！", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(ChangePasswordActivity.this, "两次输入的密码不一致！！！\n请重新输入！！！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "两次输入的密码不一致！\n请重新输入！", Toast.LENGTH_SHORT).show();
                 }
             }
         });

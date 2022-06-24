@@ -10,4 +10,12 @@
     <color name="text_color">#4E4E4E</color>
     <color name="sign_color">#2C435C</color>
     <color name="home_page">#804489D5</color>
+    <color name="add_page">#80BAFFFE</color>
+    <color name="search">#CCFCFCFC</color>
+    <color name="touming">#00000000</color>
+    <color name="bantouming">#D5ECFE</color>
+    <color name="bluetext">#165191</color>
+    <color name="bluepage">#B3D5ECFE</color>
+    <color name="home">#B6E3F9</color>
+    <color name="shade">#E1E1E1</color>
 </resources>
